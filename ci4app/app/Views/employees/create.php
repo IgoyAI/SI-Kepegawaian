@@ -1,4 +1,7 @@
-<?php $this->extend('layout'); ?>
+<?php
+$title = 'Tambah Pegawai';
+$this->extend('layout');
+?>
 <?php $this->section('content'); ?>
 <section class="content">
     <div class="container-fluid">

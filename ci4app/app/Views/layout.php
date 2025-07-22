@@ -7,6 +7,13 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/admin-lte@3.2/dist/css/adminlte.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <style>
+        .nav-sidebar .nav-link.active,
+        .nav-sidebar .nav-link:hover {
+            background-color: #007bff;
+            color: #fff;
+        }
+    </style>
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
@@ -40,18 +47,61 @@
             <nav class="mt-2">
                 <?php $user = session('user'); ?>
                 <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu">
-                    <li class="nav-item"><a href="<?= site_url('dashboard') ?>" class="nav-link"><i class="nav-icon fas fa-home"></i><p>Dashboard</p></a></li>
+                    <li class="nav-item"><a href="<?= site_url('dashboard') ?>" class="nav-link <?= url_is('dashboard') ? 'active' : '' ?>"><i class="nav-icon fas fa-home"></i><p>Dashboard</p></a></li>
                     <?php if ($user && $user['role'] === 'hr'): ?>
-                    <li class="nav-item"><a href="<?= site_url('employees') ?>" class="nav-link"><i class="nav-icon fas fa-users"></i><p>Pegawai</p></a></li>
-                    <li class="nav-item"><a href="<?= site_url('attendance') ?>" class="nav-link"><i class="nav-icon fas fa-calendar-check"></i><p>Presensi</p></a></li>
+                    <li class="nav-item"><a href="<?= site_url('employees') ?>" class="nav-link <?= url_is('employees*') ? 'active' : '' ?>"><i class="nav-icon fas fa-users"></i><p>Pegawai</p></a></li>
+                    <li class="nav-item"><a href="<?= site_url('attendance') ?>" class="nav-link <?= url_is('attendance*') ? 'active' : '' ?>"><i class="nav-icon fas fa-calendar-check"></i><p>Presensi</p></a></li>
                     <?php endif; ?>
-                    <li class="nav-item"><a href="<?= site_url('cuti') ?>" class="nav-link"><i class="nav-icon fas fa-plane"></i><p>Cuti</p></a></li>
+                    <li class="nav-item"><a href="<?= site_url('cuti') ?>" class="nav-link <?= url_is('cuti*') ? 'active' : '' ?>"><i class="nav-icon fas fa-plane"></i><p>Cuti</p></a></li>
                 </ul>
             </nav>
         </div>
     </aside>
     <!-- Content Wrapper -->
     <div class="content-wrapper p-3">
+        <div class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h1 class="m-0"><?= esc($pageTitle ?? $title ?? '') ?></h1>
+                    </div>
+                    <div class="col-sm-6">
+                        <?php if (!isset($breadcrumbs)): ?>
+                            <?php
+                                $uri = service('uri');
+                                $segments = $uri->getSegments();
+                                $breadcrumbs = [];
+                                $path = '';
+                                foreach ($segments as $i => $seg) {
+                                    $titleSeg = ucfirst(str_replace('-', ' ', $seg));
+                                    $path .= $seg;
+                                    if ($i < count($segments) - 1) {
+                                        $breadcrumbs[] = ['title' => $titleSeg, 'url' => site_url($path)];
+                                        $path .= '/';
+                                    } else {
+                                        $breadcrumbs[] = ['title' => $titleSeg];
+                                    }
+                                }
+                            ?>
+                        <?php endif; ?>
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><a href="<?= site_url('dashboard') ?>">Home</a></li>
+                            <?php if (!empty($breadcrumbs)): ?>
+                                <?php foreach ($breadcrumbs as $bc): ?>
+                                    <?php if (isset($bc['url'])): ?>
+                                        <li class="breadcrumb-item"><a href="<?= esc($bc['url']) ?>"><?= esc($bc['title']) ?></a></li>
+                                    <?php else: ?>
+                                        <li class="breadcrumb-item active"><?= esc($bc['title']) ?></li>
+                                    <?php endif; ?>
+                                <?php endforeach; ?>
+                            <?php else: ?>
+                                <li class="breadcrumb-item active"><?= esc($pageTitle ?? $title ?? '') ?></li>
+                            <?php endif; ?>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
         <?= $this->renderSection('content') ?>
     </div>
     <footer class="main-footer text-center">

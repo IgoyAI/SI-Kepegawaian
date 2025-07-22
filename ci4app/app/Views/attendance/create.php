@@ -1,4 +1,7 @@
-<?php $this->extend('layout'); ?>
+<?php
+$title = 'Input Presensi';
+$this->extend('layout');
+?>
 <?php $this->section('content'); ?>
 <section class="content">
     <div class="container-fluid">

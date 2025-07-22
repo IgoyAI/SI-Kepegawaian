@@ -18,6 +18,7 @@ class Cuti extends BaseController
     public function index()
     {
         $data['cuti'] = $this->cutiModel->getJoin()->findAll();
+        $data['pegawai'] = $this->employeeModel->findAll();
         return view('cuti/index', $data);
     }
 
