@@ -17,6 +17,10 @@
                         <?= esc(session()->getFlashdata('error')) ?>
                     </div>
                 <?php endif; ?>
+                <a href="http://localhost:8081/launch/kepegawaian" class="btn btn-primary btn-lg mb-2">
+                    <i class="fas fa-id-badge mr-2"></i>Login with SSO
+                </a>
+                <div class="mb-2">or</div>
                 <a href="<?= esc($authUrl) ?>" class="btn btn-danger btn-lg">
                     <i class="fab fa-google mr-2"></i>Sign in with Google
                 </a>

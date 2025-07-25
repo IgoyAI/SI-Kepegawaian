@@ -3,6 +3,8 @@ namespace App\Controllers;
 
 use App\Models\UserModel;
 use League\OAuth2\Client\Provider\Google;
+use Firebase\JWT\JWT;
+use Firebase\JWT\Key;
 
 class Auth extends BaseController
 {
@@ -79,6 +81,47 @@ class Auth extends BaseController
             'email' => $user['email'],
             'role' => $user['role'],
         ]);
+        return redirect()->to('/dashboard');
+    }
+
+    public function ssoLogin()
+    {
+        $token = $this->request->getGet('token');
+        if (!$token) {
+            return redirect()->to('/');
+        }
+
+        try {
+            $data = JWT::decode($token, new Key(getenv('JWT_SECRET'), 'HS256'));
+        } catch (\Throwable $e) {
+            log_message('error', 'SSO token decode failed: ' . $e->getMessage());
+            return redirect()->to('/');
+        }
+
+        $email = $data->sub ?? null;
+        $name  = $data->name ?? '';
+        if (!$email) {
+            return redirect()->to('/');
+        }
+
+        $user = $this->users->where('email', $email)->first();
+        if (!$user) {
+            $this->users->insert([
+                'email'      => $email,
+                'name'       => $name,
+                'role'       => 'employee',
+                'created_at' => date('Y-m-d H:i:s'),
+            ]);
+            $user = $this->users->where('email', $email)->first();
+        }
+
+        session()->set('user', [
+            'id'    => $user['id'],
+            'name'  => $user['name'],
+            'email' => $user['email'],
+            'role'  => $user['role'],
+        ]);
+
         return redirect()->to('/dashboard');
     }
 
