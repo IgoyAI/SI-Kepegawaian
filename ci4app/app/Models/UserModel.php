@@ -10,7 +10,7 @@ class UserModel extends Model
     protected $allowedFields = ['google_id','email','name','role','created_at'];
 
     protected $validationRules = [
-        'google_id' => 'required|is_unique[users.google_id]',
+        'google_id' => 'permit_empty|is_unique[users.google_id]',
         'email'     => 'required|valid_email|is_unique[users.email]',
     ];
 }

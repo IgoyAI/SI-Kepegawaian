@@ -72,3 +72,4 @@ GOOGLE_CLIENT_ID="764304330117-06j4mdeatu5iiab3kubg5n4hm74qn3c3.apps.googleuserc
 GOOGLE_CLIENT_SECRET="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"
 # Comma-separated list of emails that should receive the HR role
 HR_EMAILS="it.gm.saintek@gmail.com"
+JWT_SECRET="your_jwt_secret"
