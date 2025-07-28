@@ -72,8 +72,4 @@
 google.oauthClientId="YOUR_GOOGLE_CLIENT_ID"
 google.oauthClientSecret="YOUR_GOOGLE_CLIENT_SECRET"
 
-# Secret key used for signing JWT tokens issued to applications
-jwt.secret="CHANGE_ME"
-# Alternatively you can use the upper-case variable below. The value must match
-# JWT_SECRET in the ci4app `.env` so the issued tokens can be verified.
-JWT_SECRET="CHANGE_ME"
+JWT_SECRET="fa224081ddd419176eabde8e379969e390f4d31846ab3a4a7ad2ef71978ee87d"
