@@ -66,11 +66,18 @@ Semua logika berada pada folder `app/` menggunakan pola MVC bawaan CodeIgniter.
    ```bash
    php spark migrate
    ```
-5. Jalankan server pengembangan:
+5. Jalankan server pengembangan aplikasi kepegawaian pada port 8080:
    ```bash
-   php spark serve
+   php spark serve --port 8080
    ```
-6. Aplikasi dapat diakses di `http://localhost:8080`.
+6. Buka terminal baru dan jalankan layanan SSO pada port 8081:
+   ```bash
+   cd ../sso
+   composer install
+   php spark serve --port 8081
+   ```
+7. Aplikasi kepegawaian dapat diakses di `http://localhost:8080` dan proses
+   autentikasi dilakukan melalui `http://localhost:8081`.
 
 ## 4. Menjalankan Pengujian
 
