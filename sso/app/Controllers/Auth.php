@@ -38,6 +38,12 @@ class Auth extends Controller
                 session()->set('user_apps', $record['apps']);
                 session()->set('is_admin', !empty($record['is_admin']));
 
+                $redirect = session('after_login_app');
+                if ($redirect) {
+                    session()->remove('after_login_app');
+                    return redirect()->to('/launch/' . $redirect);
+                }
+
                 return redirect()->to('/');
             }
         }
@@ -85,6 +91,7 @@ class Auth extends Controller
         }
 
         if (! session()->has('user')) {
+            session()->set('after_login_app', $appId);
             return redirect()->to('/login');
         }
 
