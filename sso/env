@@ -68,8 +68,9 @@
 
 # logger.threshold = 4
 
-GOOGLE_CLIENT_ID="764304330117-06j4mdeatu5iiab3kubg5n4hm74qn3c3.apps.googleusercontent.com"
-GOOGLE_CLIENT_SECRET="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"
-# Comma-separated list of emails that should receive the HR role
-HR_EMAILS="it.gm.saintek@gmail.com"
-JWT_SECRET="fa224081ddd419176eabde8e379969e390f4d31846ab3a4a7ad2ef71978ee87d"
+# Google OAuth
+google.oauthClientId="YOUR_GOOGLE_CLIENT_ID"
+google.oauthClientSecret="YOUR_GOOGLE_CLIENT_SECRET"
+
+# Secret key used for signing JWT tokens issued to applications
+jwt.secret="CHANGE_ME"
