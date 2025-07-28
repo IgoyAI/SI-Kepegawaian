@@ -20,11 +20,18 @@ Aplikasi sederhana sistem informasi kepegawaian berbasis [CodeIgniter 4](https:/
    ```bash
    php spark migrate
    ```
-5. Jalankan server pengembangan bawaan CodeIgniter:
+5. Jalankan server pengembangan bawaan CodeIgniter untuk aplikasi kepegawaian:
    ```bash
-   php spark serve
+   php spark serve --port 8080
    ```
-6. Akses aplikasi melalui `http://localhost:8080`.
+6. Pada terminal terpisah, jalankan layanan SSO:
+   ```bash
+   cd ../sso
+   composer install
+   php spark serve --port 8081
+   ```
+7. Akses aplikasi melalui `http://localhost:8080` dan login menggunakan tombol
+   **Login with SSO** yang akan mengarahkan ke `http://localhost:8081`.
 
 Jenis cuti yang tersedia dapat disesuaikan pada berkas `app/Views/cuti/_form.php`.
 
